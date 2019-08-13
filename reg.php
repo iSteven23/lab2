@@ -12,8 +12,8 @@
 		$user = $_POST["username"];
 		$pass = $_POST["password"];
 
-		$mysqli = new mysqli('localhost', 'admin', 'password', 'lab2_database');
-		$checkDuplicateUser = $mysqli->query("SELECT id FROM users WHERE username = '$user'");
+		$mysqli = new mysqli('localhost', 'root', '484lab2', 'lab2_database');
+		$checkDuplicateUser = $mysqli->query("SELECT UserID FROM users WHERE UserName = '$user'");
 		if($user&&$pass)
 		{
 			if($mysqli->connection_error)
@@ -22,7 +22,7 @@
 			}
 			if($checkDuplicateUser->num_rows == 0)
 			{
-				$sql = "INSERT INTO users (username, password)
+				$sql = "INSERT INTO users (UserName, Password)
 				VALUES ('$user', '$pass')";
 
 			if($mysqli->query($sql) ===TRUE)
@@ -30,7 +30,7 @@
 				echo "You have been registered. Return to home page to login.";
 				echo '<form action="lab2.php" method="post">';
 				echo '<input type="submit" value="return">';
-				echo'</form>';
+				echo '</form>';
 			}
 			else
 				{
@@ -42,7 +42,7 @@
 				echo "Username already exists.";
 				echo '<form action="lab2.php" method="post">';
 				echo '<input type="submit" value="return">';
-				echo'</form>';
+				echo '</form>';
 			}
 		}
 		else
@@ -50,7 +50,7 @@
 			echo "Empty text field(s).";
 			echo '<form action="lab2.php" method="post">';
 			echo '<input type="submit" value="return">';
-			echo'</form>';
+			echo '</form>';
 		}
 		
 		

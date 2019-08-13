@@ -14,8 +14,8 @@
 	//create a connection
 	
 	$mysql_host = 'localhost';
-	$mysql_user = 'admin';
-	$mysql_pass = 'password';
+	$mysql_user = 'root';
+	$mysql_pass = '484lab2';
 	$mysql_db = 'lab2_database';
 	$con = mysqli_connect($mysql_host, $mysql_user, $mysql_pass) or die('dead');
 
