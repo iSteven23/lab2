@@ -9,23 +9,50 @@
 	
         var blinkButton;
 
-        function LightFade()
+        function lightFade()
         {
             console.log("light fade");
+            var lightId = 6;
+            var lightOn = true;
+            var put = "PUT";
+            var bri = 255;
+            var authCode = "lH7nZmlzj1fMbsjzOAyrs6sO24zAsMY--IiF59vH";
+            var urlStr = "http://130.166.45.108/api/";
+            urlStr += authCode;
+            urlStr += "/lights/" + lightId + "/state";
+            
+            sendAJAX(urlStr, put, JSON.stringify({"on":true, "bri":255, "hue": 16184}));
+            
+            for(var i = 0; i < 12; i++)
+            {
+                if(bri <= 0) lightOn = false;
+                sendAJAX(urlStr,put, JSON.stringify({"bri":bri, "on": lightOn, "hue": 16184}));
+                bri-=25;
+                sleepMs(200);
+            }
+            
+            
+            
         }
         
-        function sendAJAX()
+        function sendAJAX(url, method, str)
         {
+            var req = new XMLHttpRequest();
+            req.open(method, url, true);
+            req.setRequestHeader("Content-Type", "application/json");
+            req.send(str);
         }
         
-        function sleepMs()
+        function sleepMs(msec)
         {
+            var start = new Date().getTime();
+            while((new Date().getTime()) < (start + msec));
         }
 		
 		function init()
 		{
             blinkButton = document.getElementById("blinkB");
-            blinkButton.addEventListener("click", LightFade);
+            blinkButton.addEventListener("click", lightFade);
 		}
 
 		window.addEventListener("load", init);
